@@ -60,6 +60,16 @@ router.put('/posts/:post/upvote', auth, function(req, res, next) {
   });//end post.upvote
 });
 
+router.put('/posts/:post/downvote', auth, function(req, res, next) {
+    req.post.downvote(function(err, post) {
+        if (err) {
+            return next(err);
+        }
+
+        res.json(post);
+    }); //end post.downvote
+});
+
 router.param('comment', function(req, res, next, id) {
   var query = Comment.findById(id);
   query.exec(function(err, comment){
@@ -94,6 +104,14 @@ router.put('/posts/:post/comments/:comment/upvote', auth, function(req, res, nex
 
     res.json(comment);
   });//end comment.upvote
+});
+
+router.put('/posts/:post/comments/:comment/downvote', auth, function(req, res, next) {
+  req.comment.downvote(function(err, comment){
+    if(err){ return next(err); }
+
+    res.json(comment);
+  });//end comment.downvote
 });
 
 router.post('/register', function(req, res, next)
