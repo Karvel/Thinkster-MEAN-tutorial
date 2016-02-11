@@ -23,14 +23,13 @@ router.get('/posts', function(req, res, next) {
 });
 
 router.post('/posts', auth, function(req, res, next) {
-var post = new Post(req.body);
-post.author = req.payload.username;
+  var post = new Post(req.body);
+  post.author = req.payload.username;
+  post.save(function(err, post){
+    if(err){ return next(err); }
 
-post.save(function(err, post){
-  if(err){ return next(err); }
-
-  res.json(post);
-});//end post.save
+    res.json(post);
+  });//end post.save
 });
 
 router.param('post', function(req, res, next, id) {
@@ -84,7 +83,7 @@ router.param('comment', function(req, res, next, id) {
 router.post('/posts/:post/comments', auth, function(req, res, next){
   var comment = new Comment(req.body);
   comment.post = req.post;
-  comment.author = req.payload.username;
+  comment.author = req.body.author;
 
   comment.save(function(err, comment){
     if(err){ return next(err); }

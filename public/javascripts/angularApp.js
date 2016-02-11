@@ -229,9 +229,13 @@ app.controller('MainCtrl', ['$scope', 'auth', 'posts',
         {
             posts.downvote(post);
         };//end scope.incrementDownvotes
+        $scope.commentCount = function(post)
+        {
+            return comments.length;
+        };//end commentCount
 }]);//end MainCtrl controller
 
-app.controller('PostsCtrl', ['$scope', 'auth','posts', 'post',
+app.controller('PostsCtrl', ['$scope', 'auth', 'posts', 'post',
     function($scope, auth, posts, post)
     {
         $scope.isLoggedIn = auth.isLoggedIn;
@@ -241,12 +245,13 @@ app.controller('PostsCtrl', ['$scope', 'auth','posts', 'post',
             if($scope.body === '') { return; }
             posts.addComment(post._id, {
                 body: $scope.body,
-                author: 'user',
+                author: $scope.author,
             }).success(function(comment)
             {
                 $scope.post.comments.push(comment);
             });//end posts.addComment
             $scope.body = '';
+            $scope.author = '';
         };//end scope.addComment
         $scope.incrementUpvotes = function(comment)
         {

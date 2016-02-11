@@ -13,6 +13,7 @@
 <body ng-app="flapperNews">
     <nav class="navbar navbar-default pull-right" ng-controller="NavCtrl">
         <ul class="nav navbar-nav">
+            <li><a href="/#/home">Home</a></li>
             <li ng-show="isLoggedIn()"><a>{{currentUser() }}</a></li>
             <li ng-show="isLoggedIn()"><a href="" ng-click="logOut()">Log Out</a></li>
             <li ng-hide="isLoggedIn()"><a href="/#/login">Log In</a></li>
@@ -43,12 +44,12 @@
                 <span ng-hide="post.link">
                     {{post.title}}
                 </span>
-                <span ng-show="post.author">
-                    posted by <a>{{post.author}}</a> |
-                </span>
+            </span>
+            <span ng-show="post.author">
+                posted by <a>{{post.author}}</a> |
             </span>
             <span>
-                <a href="#/posts/{{post._id}}">Comments</a>
+                <a href="#/posts/{{post._id}}">Comments ({{post.comments.length}})</a>
             </span>
         </div>
 
@@ -93,10 +94,13 @@
                 ng-click="incrementUpvotes(comment)"></span>
             <span class="glyphicon glyphicon-thumbs-down"
                 ng-click="incrementDownvotes(comment)"></span>
-            {{comment.upvotes}} - by {{comment.author}}
+            {{comment.upvotes}}
             <span style="font-size:20px; margin-left:10px;">
                 {{comment.body}}
             </span>
+             <span ng-show="comment.author">
+                 - by {{comment.author}}
+             </span>
         </div>
 
         <form ng-submit="addComment()"
@@ -108,7 +112,13 @@
                 <input type="text"
                 class="form-control"
                 placeholder="Comment"
-                ng-model="body"></input>
+                ng-model="body"/>
+            </div>
+            <div class="form-group">
+                <input type="text"
+                class="form-control"
+                placeholder="Name"
+                ng-model="author"/>
             </div>
             <button type="submit" class="btn btn-primary">Post</button>
         </form>
