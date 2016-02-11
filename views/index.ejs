@@ -14,7 +14,7 @@
     <nav class="navbar navbar-default pull-right" ng-controller="NavCtrl">
         <ul class="nav navbar-nav">
             <li><a href="/#/home">Home</a></li>
-            <li ng-show="isLoggedIn()"><a>{{currentUser() }}</a></li>
+            <li ng-show="isLoggedIn()"><a>{{ currentUser() }}</a></li>
             <li ng-show="isLoggedIn()"><a href="" ng-click="logOut()">Log Out</a></li>
             <li ng-hide="isLoggedIn()"><a href="/#/login">Log In</a></li>
             <li ng-hide="isLoggedIn()"><a href="/#/register">Register</a></li>
@@ -56,21 +56,25 @@
         <form ng-submit="addPost()"
             ng-show="isLoggedIn()"
             style="margin-top:30px;">
-            <h3>Add a new post</h3>
-
-            <div class="form-group">
-                <input type="text"
-                class="form-control"
-                placeholder="Title"
-                ng-model="title"/>
+            <div class="container">
+                <button type="button" ng-click="showForm=true" class="btn btn-primary">Add a new post</button>
             </div>
-            <div class="form-group">
-                <input type="text"
-                class="form-control"
-                placeholder="Link"
-                ng-model="link"/>
+            <div ng-show="showForm">
+                <h3>Add a new post</h3>
+                <div class="form-group">
+                    <input type="text"
+                    class="form-control"
+                    placeholder="Title"
+                    ng-model="title"/>
+                </div>
+                <div class="form-group">
+                    <input type="text"
+                    class="form-control"
+                    placeholder="Link"
+                    ng-model="link"/>
+                </div>
+                <button type="submit" class="btn btn-primary">Post</button>
             </div>
-            <button type="submit" class="btn btn-primary">Post</button>
         </form>
         <div ng-hide="isLoggedIn()">
             <h3>You need to <a href="/#/login">Log In</a> or <a href="/#/register">Register</a> before you can add a post.</h3>
@@ -106,21 +110,25 @@
         <form ng-submit="addComment()"
             ng-show="isLoggedIn()"
             style="margin-top:30px;">
+            <div>
+                <button type="button" ng-click="showForm=true" class="btn btn-primary">Add a new commment</button>
+            </div>
+            <div ng-show="showForm">
             <h3>Add a new comment</h3>
-
-            <div class="form-group">
-                <input type="text"
-                class="form-control"
-                placeholder="Comment"
-                ng-model="body"/>
+                <div class="form-group">
+                    <input type="text"
+                    class="form-control"
+                    placeholder="Comment"
+                    ng-model="body"/>
+                </div>
+                <div class="form-group">
+                    <input type="text"
+                    class="form-control"
+                    placeholder="Name"
+                    ng-model="author"/>
+                </div>
+                <button type="submit" class="btn btn-primary">Post</button>
             </div>
-            <div class="form-group">
-                <input type="text"
-                class="form-control"
-                placeholder="Name"
-                ng-model="author"/>
-            </div>
-            <button type="submit" class="btn btn-primary">Post</button>
         </form>
         <div ng-hide="isLoggedIn()">
             <h3>You need to <a href="/#/login">Log In</a> or <a href="/#/register">Register</a> before you can comment.</h3>
@@ -147,7 +155,7 @@
                 ng-model="user.username"/>
             </div>
             <div class="form-group">
-                <input type="text"
+                <input type="password"
                 class = "form-control"
                 placeholder="Password"
                 ng-model="user.password"/>
@@ -176,7 +184,7 @@
                 ng-model="user.username"/>
             </div>
             <div class="form-group">
-                <input type="text"
+                <input type="password"
                 class = "form-control"
                 placeholder="Password"
                 ng-model="user.password"/>
